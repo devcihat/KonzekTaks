@@ -16,11 +16,10 @@ function DataDetails({ data }) {
         onClick={BackClick}
         className="inline-flex mt-12 ml-8 items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       >
-        {" "}
         Back
       </button>
       {data
-        .filter((card) => JSON.stringify(card.id) === id)
+        .filter((card) => card.id.toString() === id)
         .map((card, index) => (
           <div className="mx-auto w-1/2 mt-20">
             <div key={index} className="bg-white shadow overflow-hidden">
