@@ -5,10 +5,9 @@ import axios from "axios";
 import FilterComponent from "./component/FilterComponent";
 import {
   BrowserRouter as Router,
-  Link,
-  NavLink,
   Route,
   Switch,
+  useHistory
 } from "react-router-dom";
 import DataDetails from "./component/DataDetails";
 
@@ -34,6 +33,7 @@ const columns = [
 
 function App() {
   const [dataKonzek, setDataKonzek] = useState([]);
+  let history = useHistory();
 
   useEffect(() => {
     // POST request using axios inside useEffect React hoo
@@ -73,9 +73,7 @@ function App() {
             persistTableHead
             subHeader={true}
             subHeaderComponent={subHeaderComponentMemo}
-            onRowClicked={(row,event) => {
-              <Link to={`/posts/${row.id}`} />
-            }}
+            onRowClicked={(row) => history.push(`/posts/${row.id}`)}
           />
         </Route>
         <Route exact path="/posts/:id">
