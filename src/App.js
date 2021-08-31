@@ -3,6 +3,14 @@ import "./App.css";
 import DataTable from "react-data-table-component";
 import axios from "axios";
 import FilterComponent from "./component/FilterComponent";
+import {
+  BrowserRouter as Router,
+  Link,
+  NavLink,
+  Route,
+  Switch,
+} from "react-router-dom";
+import DataDetails from "./component/DataDetails";
 
 const columns = [
   {
@@ -11,15 +19,15 @@ const columns = [
     sortable: true,
   },
   {
-    name: "email",
+    name: "Email",
     selector: (row) => row.email,
   },
   {
-    name: "gender",
+    name: "Gender",
     selector: (row) => row.gender,
   },
   {
-    name: "statüs",
+    name: "Status",
     selector: (row) => row.status,
   },
 ];
@@ -53,19 +61,28 @@ function App() {
   }, [filterText]);
 
   return (
-    <div>
-      <DataTable
-        title="Konzek Task"
-        columns={columns}
-        data={filteredItems}
-        pagination
-        selectableRows
-        persistTableHead
-        subHeader={true}
-        subHeaderComponent={subHeaderComponentMemo}
-        persistTableHead
-      />
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <DataTable
+            title="Konzek Task"
+            columns={columns}
+            data={filteredItems}
+            pagination
+            selectableRows
+            persistTableHead
+            subHeader={true}
+            subHeaderComponent={subHeaderComponentMemo}
+            onRowClicked={(row,event) => {
+              <Link to={`/posts/${row.id}`} />
+            }}
+          />
+        </Route>
+        <Route exact path="/posts/:id">
+          <DataDetails data={dataKonzek} />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
